@@ -195,7 +195,6 @@ export default function Page() {
       link: 'https://llm.prebodigital.co.za/',
       github: '',
     },
-    // Add more personal or open-source projects here
   ];
 
   return (

@@ -8,6 +8,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { ContactDialog } from '@/components/contact-dialog';
 
 const navItems = [
   { href: '/', label: 'home' },
@@ -18,7 +19,7 @@ export function Navbar() {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <NavigationMenu className="max-w-4xl mx-auto px-0 mt-8 border fixed top-0 left-1/2 -translate-1/2 rounded bg-background z-50">
+    <NavigationMenu className="max-w-4xl mx-auto px-0 mt-8 border fixed top-0 left-1/2 transform -translate-x-1/2 rounded bg-background z-50">
       <NavigationMenuList>
         {navItems.map((item) => (
           <NavigationMenuItem key={item.href}>
@@ -34,6 +35,9 @@ export function Navbar() {
             </NavigationMenuLink>
           </NavigationMenuItem>
         ))}
+        <NavigationMenuItem>
+          <ContactDialog />
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );

@@ -3,6 +3,7 @@ import { Playfair_Display, Geist_Mono, Oxanium } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/nav';
 import Footer from '@/components/footer';
+import { Toaster } from 'sonner';
 
 const playfairDisplay = Playfair_Display({
   variable: '--font-playfair-display',
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Navbar />
         <main className="max-w-4xl mx-auto px-4 md:px-0 pt-8">{children}</main>
         <Footer />
+        <Toaster position="top-center" />
       </body>
     </html>
   );
