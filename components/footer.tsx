@@ -49,7 +49,7 @@ export default function Footer() {
         </li>
         <li>
           <Link
-            href="https://vercel.com/templates/next.js/portfolio-starter-kit"
+            href="https://github.com/FrancoisSchoeman/fsdev"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center hover:text-foreground transition-colors"

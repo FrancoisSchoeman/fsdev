@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-// import { BlogPosts } from '@/components/posts';
+import { BlogPosts } from '@/components/posts';
 import me from '@/public/images/me.webp';
 import prebo from '@/public/images/logos/prebo-logo.webp';
 import grkk from '@/public/images/logos/grkk-logo.webp';
@@ -487,8 +487,8 @@ export default function Page() {
         ))}
       </div>
 
-      {/* <h2 className="text-3xl font-semibold mb-6 mt-12">Blog Posts</h2>
-      <BlogPosts /> */}
+      <h2 className="text-3xl font-semibold mb-6 mt-12">Blog Posts</h2>
+      <BlogPosts />
     </section>
   );
 }

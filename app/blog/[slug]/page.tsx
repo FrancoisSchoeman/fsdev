@@ -99,7 +99,7 @@ export default async function Blog({ params }: Props) {
         {post.metadata.title}
       </h1>
 
-      <Badge className="mt-4 flex flex-wrap items-center gap-2 text-sm bg-accent">
+      <Badge className="mt-4 flex flex-wrap items-center gap-2 text-sm bg-primary">
         <Calendar className="h-4 w-4" />
         <time dateTime={post.metadata.publishedAt}>
           {formatDate(post.metadata.publishedAt)}
