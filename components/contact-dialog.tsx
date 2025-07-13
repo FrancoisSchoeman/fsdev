@@ -26,6 +26,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { submitContactForm, type ContactFormData } from '@/lib/actions';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100, 'Name is too long'),
@@ -68,6 +69,7 @@ export function ContactDialog() {
         toast.success(result.message);
         form.reset();
         setIsOpen(false);
+        sendGAEvent('event', 'contact_form_submit');
       } else {
         toast.error(result.error);
 

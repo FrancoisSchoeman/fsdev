@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Playfair_Display, Geist_Mono, Oxanium } from 'next/font/google';
 import './globals.css';
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
   title: 'Francois Schoeman',
   description:
     'Hello, there - fellow internet traveler! I am Francois Schoeman, a software engineer based in Stilbaai, South Africa.',
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION!,
+  },
 };
 
 export default function RootLayout({
@@ -45,6 +49,7 @@ export default function RootLayout({
         <Footer />
         <Toaster position="top-center" />
       </body>
+      <GoogleAnalytics gaId={process.env.GA4_MEASUREMENT_ID!} />
     </html>
   );
 }
