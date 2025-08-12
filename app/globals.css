@@ -169,6 +169,67 @@
   }
 }
 
+/* Floating animation utility (used for the Sailboat icon) */
+@layer utilities {
+  @keyframes float-soft {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-2deg);
+    }
+    50% {
+      transform: translateY(-6px) rotate(2deg);
+    }
+  }
+  .animate-float-soft {
+    animation: float-soft 4s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float-soft {
+      animation: none;
+    }
+  }
+}
+
+@layer utilities {
+  @keyframes wave-scroll {
+    from {
+      background-position-x: 0;
+    }
+    to {
+      background-position-x: 120px;
+    }
+  }
+  .wave-underline {
+    position: relative;
+    height: 8px;
+    background-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%208'><path%20d='M0%204%20Q%2010%200%2020%204%20T%2040%204%20T%2060%204%20T%2080%204%20T%20100%204%20T%20120%204'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'/></svg>");
+    background-repeat: repeat-x;
+    background-size: 120px 8px;
+    animation: wave-scroll 12s linear infinite;
+    opacity: 0.6;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #599ecd 10%,
+      #599ecd 90%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #599ecd 10%,
+      #599ecd 90%,
+      transparent
+    );
+    color: #599ecd;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wave-underline {
+      animation: none;
+    }
+  }
+}
+
 /* Headings */
 .prose h1 {
   @apply text-4xl font-bold tracking-tight pb-4;

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPosts } from '@/components/posts';
 import me from '@/public/images/me.webp';
+import meAndCat from '@/public/images/me-and-cat.webp';
 import prebo from '@/public/images/logos/prebo-logo.webp';
 import grkk from '@/public/images/logos/grkk-logo.webp';
 import unisa from '@/public/images/logos/unisa-logo.webp';
@@ -201,25 +202,48 @@ export default function Page() {
     <section className="container px-4 md:px-0 py-16 lg:max-w-screen-lg">
       <header className="flex flex-col items-center justify-center">
         <div className="flex items-center space-x-6 mb-8">
-          <Image
-            src={me}
-            alt="Profile"
-            className="rounded-full border hover:-rotate-12 hover:scale-110 transition-transform duration-300"
-            width={96}
-            height={96}
-          />
+          <div className="relative w-[96px] h-[96px] group">
+            <Image
+              src={me}
+              alt="Profile"
+              className="rounded-full border absolute inset-0 transition-all duration-500 ease-out group-hover:opacity-0 group-hover:scale-75"
+              width={96}
+              height={96}
+            />
+            <Image
+              src={meAndCat}
+              alt="Person with a cat"
+              className="rounded-full border absolute inset-0 opacity-0 scale-90 rotate-0 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:scale-110 group-hover:-rotate-12"
+              width={96}
+              height={96}
+            />
+          </div>
           <div>
             <h2 className="text-3xl font-bold">Francois Schoeman</h2>
-            <p className="text-muted-foreground flex items-center justify-start flex-wrap">
-              Based in Stilbaai{' '}
-              <Sailboat className="h-5 w-5 text-sidebar-primary ml-1" />
-              <span className="hidden md:inline-block mr-1">, </span>South
-              Africa
-            </p>
+            <div className="relative">
+              <p className="text-muted-foreground flex items-center justify-start flex-wrap">
+                Based in Stilbaai{' '}
+                <Sailboat className="h-5 w-5 text-sidebar-primary ml-1 animate-float-soft" />
+                <span className="hidden md:inline-block mr-1">, </span>South
+                Africa
+              </p>
+              <div
+                className="wave-underline text-sidebar-primary"
+                aria-hidden="true"
+              />
+            </div>
           </div>
         </div>
-        <h1 className="scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-6xl mb-6">
-          Software Developer
+        <h1 className="scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-6xl mb-6 leading-tight">
+          {'Software Developer'.split('').map((ch, i) => (
+            <span
+              key={i}
+              className="relative inline-block cursor-default transition-all duration-300 ease-out will-change-transform hover:-translate-y-1 hover:rotate-3 hover:scale-125 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br hover:from-primary hover:to-sidebar-primary"
+              aria-hidden={ch === ' ' ? 'true' : undefined}
+            >
+              {ch === ' ' ? '\u00A0' : ch}
+            </span>
+          ))}
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground text-left md:text-center">
           I&apos;m a problem-solving (and coffee) addict who gets way too
@@ -416,7 +440,7 @@ export default function Page() {
         </TabsContent>
       </Tabs>
 
-      <h2 className="text-3xl font-semibold mb-6 mt-12">Tech Stack</h2>
+      <h2 className="text-3xl font-semibold mb-6 mt-12">Skills</h2>
       <div className="flex flex-wrap gap-2">
         {skills.map((skill, idx) => (
           <Badge
@@ -442,7 +466,7 @@ export default function Page() {
         {projects.map((proj) => (
           <Card
             key={proj.title}
-            className="hover:shadow-lg transition-shadow pt-0"
+            className="group relative overflow-hidden pt-0 border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/40 focus-within:-translate-y-1 focus-within:shadow-xl before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_30%_20%,theme(colors.primary/25),transparent_70%)] before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100"
           >
             {proj.imageSrc && (
               <div className="relative aspect-video w-full">
@@ -450,23 +474,27 @@ export default function Page() {
                   src={proj.imageSrc}
                   alt={proj.alt || `Screenshot of ${proj.title} project`}
                   fill
-                  className="object-cover rounded-t-xl group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover rounded-t-xl transition-transform duration-500 ease-out group-hover:scale-105 group-hover:brightness-110"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>
             )}
-            <CardHeader className="gap-0">
-              <CardTitle className="text-lg">{proj.title}</CardTitle>
+            <CardHeader className="gap-0 relative z-[1]">
+              <CardTitle className="text-lg transition-colors duration-300 group-hover:text-primary">
+                {proj.title}
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm">{proj.description}</p>
+            <CardContent className="space-y-4 relative z-[1]">
+              <p className="text-sm transition-colors duration-300 group-hover:text-muted-foreground">
+                {proj.description}
+              </p>
               <div className="flex gap-4">
                 {proj.link && (
                   <Link
                     href={proj.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm underline"
+                    className="text-sm underline decoration-dotted underline-offset-4 transition-colors duration-300 hover:text-primary"
                   >
                     Live Demo
                   </Link>
@@ -476,7 +504,7 @@ export default function Page() {
                     href={proj.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm underline"
+                    className="text-sm underline decoration-dotted underline-offset-4 transition-colors duration-300 hover:text-primary"
                   >
                     GitHub
                   </Link>

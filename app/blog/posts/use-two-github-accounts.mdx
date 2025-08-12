@@ -1,0 +1,232 @@
+---
+title: 'How to use two GitHub accounts on the same Windows laptop (without going insane)'
+publishedAt: '2025-08-12'
+summary: 'If you’ve ever needed to juggle two GitHub accounts - say, a personal one and a work one - on the same machine, you’ll know it’s not always plug-and-play.'
+---
+
+If you’ve ever needed to juggle **two GitHub accounts** - say, a personal one and a work one - on the same machine, you’ll know it’s not always plug-and-play.
+The good news: once you set it up correctly, you can switch between them seamlessly.
+
+This guide is my **battle-tested recipe** for running two accounts side-by-side via SSH on Windows (using Git Bash or any OpenSSH-capable shell). I’ll also show you how to commit with the right identity **and** handle brand-new projects.
+
+---
+
+## 1. Create a Separate SSH Key for Your Second Account
+
+We’ll keep your personal SSH key as-is and create a new one for your work account.
+
+1. **Open Git Bash** (or PowerShell if OpenSSH is installed).
+2. Run:
+
+   ```bash
+   ssh-keygen -t ed25519 \
+     -C "your.work.email@domain.com" \
+     -f ~/.ssh/id_ed25519_work
+   ```
+
+   - Press **Enter** through the prompts (set a passphrase if you want extra security).
+   - This will give you:
+
+     - `~/.ssh/id_ed25519_work` (private key)
+     - `~/.ssh/id_ed25519_work.pub` (public key)
+
+---
+
+## 2. Add the New Key to Your Work GitHub Account
+
+1. Copy your **public key** to the clipboard:
+
+   ```bash
+   clip < ~/.ssh/id_ed25519_work.pub
+   ```
+
+2. Log into your **work GitHub account** in the browser.
+
+3. Go to **Settings → SSH and GPG Keys → New SSH key**.
+
+4. Paste the key and save.
+
+---
+
+## 3. Configure SSH to Tell the Keys Apart
+
+Edit (or create) your `~/.ssh/config` file:
+
+```text
+# PERSONAL ACCOUNT (default)
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+
+# WORK ACCOUNT
+Host github-work
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_work
+```
+
+---
+
+## 4. Load Both Keys
+
+Run:
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+ssh-add ~/.ssh/id_ed25519_work
+```
+
+_(Optional) Add these lines to `~/.bash_profile` so they run automatically each session._
+
+---
+
+## 5. Cloning Repos for the Right Account
+
+- **Personal repo** (no changes needed):
+
+  ```bash
+  git clone git@github.com:personalUser/repo-name.git
+  ```
+
+- **Work repo** (use the `github-work` alias):
+
+  ```bash
+  git clone git@github-work:workUser/repo-name.git
+  ```
+
+**If you already cloned a work repo** and need to switch it to the work account:
+
+```bash
+git remote set-url origin git@github-work:workUser/repo-name.git
+```
+
+---
+
+## 6. Set the Right Git Identity
+
+Git commits are stamped with the `user.name` and `user.email` from your config.
+
+### Option 1 - Per Repo
+
+Inside a work repo:
+
+```bash
+git config user.name  "Your Work Name"
+git config user.email "your.work.email@domain.com"
+```
+
+### Option 2 - Auto-Select by Folder
+
+If you store all work repos under `~/projects/work/`, edit `~/.gitconfig`:
+
+```ini
+[user]
+  name  = Your Personal Name
+  email = your.personal@email.com
+
+[includeIf "gitdir:~/projects/work/"]
+  path = ~/.gitconfig-work
+```
+
+Then create `~/.gitconfig-work`:
+
+```ini
+[user]
+  name  = Your Work Name
+  email = your.work.email@domain.com
+```
+
+---
+
+## 7. Starting a New Project With the Right Account
+
+When creating a **new work project**:
+
+1. **Make the folder** in your work directory (if using the conditional config):
+
+   ```bash
+   mkdir -p ~/projects/work/my-new-project
+   cd ~/projects/work/my-new-project
+   ```
+
+2. **Initialize Git**:
+
+   ```bash
+   git init
+   ```
+
+3. **Check your identity** (should show your work details if in the work folder):
+
+   ```bash
+   git config user.name
+   git config user.email
+   ```
+
+4. **Create the remote repo** on your work GitHub account (via browser).
+
+5. **Add the remote**:
+
+   ```bash
+   git remote add origin git@github-work:workUser/my-new-project.git
+   ```
+
+6. **Commit and push**:
+
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push -u origin main
+   ```
+
+For a **new personal project**, just follow the same steps but use your normal GitHub host and personal account.
+
+---
+
+## 8. Quick Verification
+
+You can check that both keys and accounts are working:
+
+```bash
+ssh -T git@github.com
+# Hi personalUser!
+
+ssh -T git@github-work
+# Hi workUser!
+```
+
+---
+
+## 9. Troubleshooting Remote Name Conflicts
+
+If you see:
+
+```
+error: remote origin already exists.
+```
+
+It means the remote is already set.
+You can either:
+
+- **Update the existing remote**:
+
+  ```bash
+  git remote set-url origin git@github-work:workUser/repo-name.git
+  ```
+
+- **Add a second remote**:
+
+  ```bash
+  git remote add work git@github-work:workUser/repo-name.git
+  git push work main
+  ```
+
+---
+
+## Final Thoughts
+
+Once this is set up, switching between personal and work repos is seamless.
+The SSH alias ensures the right account is used for pushes, and the per-repo or conditional Git configs ensure commits have the right name and email.
+
+You can now **clone, commit, and push** to both accounts from the same laptop - no more re-authentication gymnastics.
