@@ -11,6 +11,7 @@ import freeCodeCamp from '@/public/images/logos/free-code-camp-logo.webp';
 import cisco from '@/public/images/logos/cisco-logo.webp';
 import boston from '@/public/images/logos/boston-logo.webp';
 import udemy from '@/public/images/logos/udemy-logo.webp';
+import straider from '@/public/images/projects/straider-ai.webp';
 import preboTools from '@/public/images/projects/prebo-tools.webp';
 import llmAudit from '@/public/images/projects/llm-audit.webp';
 
@@ -75,6 +76,7 @@ export default function Page() {
       imageSrc: prebo,
       alt: 'Prebo Digital Logo',
       projects: [
+        'Straider.ai: a scalable AI-powered SEO automation platform that generates and publishes content aligned with Google’s E-E-A-T model to improve search visibility and trust. Built with Next.js and MySQL.',
         'AI Product Data Feed Optimizer: Optimizes product content using the OpenAI API and syncs it to Google Merchant Center. Built with Python and Django.',
         'Google Merchant Center Data Validation: Sends automated Slack alerts for invalid data. Built with Python.',
         'Shopify SEO Fixer: Automatically detects and resolves SEO issues for products and collections. Built with Python and Shopify APIs.',
@@ -92,8 +94,8 @@ export default function Page() {
         'Implementing CRO changes for A/B testing campaigns (VWO) using JavaScript.',
       ],
       achievements: [
+        'Promoted three times within two years based on performance, expanded responsibilities, and technical impact.',
         'Google Analytics Certification.',
-        'Got crowned as “Mr Magic,” because apparently I can do anything. ¯\\_(ツ)_/¯',
       ],
     },
     {
@@ -178,6 +180,15 @@ export default function Page() {
   ];
 
   const projects = [
+    {
+      imageSrc: straider,
+      alt: 'Straider.ai Screenshot',
+      title: 'Straider.ai',
+      description:
+        'An AI-driven programmatic SEO platform that automates keyword intelligence and content generation while enforcing Google E-E-A-T principles to scale organic search growth.',
+      link: 'https://www.straider.ai/',
+      github: '',
+    },
     {
       imageSrc: preboTools,
       alt: 'Prebo Tools Screenshot',
@@ -311,7 +322,7 @@ export default function Page() {
           className="rounded-full hover:-rotate-12 hover:scale-110 transition-transform duration-300"
         >
           <Link
-            href={'/CV-Francois-Schoeman-2024.pdf'}
+            href={'/CV-Francois-Schoeman.pdf'}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -462,7 +473,7 @@ export default function Page() {
 
       <h2 className="text-3xl font-semibold mb-6 mt-12">Projects</h2>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-3">
         {projects.map((proj) => (
           <Card
             key={proj.title}
