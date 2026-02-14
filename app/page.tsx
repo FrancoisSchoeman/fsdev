@@ -46,7 +46,6 @@ import {
 } from 'react-icons/fa';
 import { GrMysql } from 'react-icons/gr';
 
-// TODO: Blogs, projects, and experience
 export default function Page() {
   const skills = [
     { title: 'Next.js', icon: RiNextjsFill },
@@ -211,6 +210,56 @@ export default function Page() {
 
   return (
     <section className="container px-4 md:px-0 py-16 lg:max-w-screen-lg">
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Francois Schoeman',
+            jobTitle: 'Software Engineer',
+            description:
+              'Full-stack software engineer specializing in Next.js, React, Django, and Python. Based in Stilbaai, South Africa.',
+            url: 'https://www.fsdev.co.za',
+            sameAs: [
+              'https://github.com/FrancoisSchoeman',
+              'https://www.linkedin.com/in/francois-schoeman',
+            ],
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Stilbaai',
+              addressCountry: 'South Africa',
+            },
+            knowsAbout: [
+              'Next.js',
+              'React',
+              'Django',
+              'Python',
+              'JavaScript',
+              'TypeScript',
+              'MySQL',
+              'Tailwind CSS',
+              'Full Stack Development',
+              'Web Development',
+            ],
+            alumniOf: [
+              {
+                '@type': 'Organization',
+                name: 'University of South Africa (UNISA)',
+              },
+              {
+                '@type': 'Organization',
+                name: 'HTS Eden',
+              },
+            ],
+            worksFor: {
+              '@type': 'Organization',
+              name: 'Prebo Digital',
+            },
+          }),
+        }}
+      />
       <header className="flex flex-col items-center justify-center">
         <div className="flex items-center space-x-6 mb-8">
           <div className="relative w-[96px] h-[96px] group">

@@ -24,11 +24,53 @@ const geistMono = Geist_Mono({
   weight: ['400', '500', '600', '700'],
 });
 
-// TODO: Add more metadata properties like Open Graph, Twitter Card, etc.
+const siteUrl = 'https://www.fsdev.co.za';
+const siteName = 'Francois Schoeman';
+const siteDescription =
+  'Hello, there - fellow internet traveler! I am Francois Schoeman, a software engineer based in Stilbaai, South Africa.';
+
 export const metadata: Metadata = {
-  title: 'Francois Schoeman',
-  description:
-    'Hello, there - fellow internet traveler! I am Francois Schoeman, a software engineer based in Stilbaai, South Africa.',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: siteDescription,
+  keywords: [
+    'Francois Schoeman',
+    'Software Engineer',
+    'Full Stack Developer',
+    'Web Development',
+    'Next.js',
+    'React',
+    'TypeScript',
+    'Stilbaai',
+    'South Africa',
+  ],
+  authors: [{ name: 'Francois Schoeman' }],
+  creator: 'Francois Schoeman',
+  publisher: 'Francois Schoeman',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteUrl,
+    siteName,
+    title: siteName,
+    description: siteDescription,
+    images: [
+      {
+        url: '/og?title=Francois Schoeman - Software Engineer&description=Software engineer based in Stilbaai, South Africa',
+        width: 1200,
+        height: 630,
+        alt: siteName,
+      },
+    ],
+  },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION!,
   },
