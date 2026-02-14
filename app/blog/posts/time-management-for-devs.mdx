@@ -1,0 +1,94 @@
+---
+title: 'Time management is a scheduling problem'
+publishedAt: '2026-02-14'
+summary: 'What a 1997 NASA Mars mission and operating system schedulers can teach us about managing our time when everything feels urgent and nothing seems to get done.'
+---
+
+If you’ve ever felt like you’re constantly busy but still not making meaningful progress, then you might have more in common with a 1997 Mars spacecraft than you think.
+
+## Some context
+
+In the summer of 1997, NASA’s Pathfinder spacecraft landed on Mars and started transmitting incredible images back to Earth. But just a few days into the mission, something went wrong. The transmissions stopped - not because of hardware failure, but because Pathfinder was essentially procrastinating.
+
+It was fully occupied… just not doing its most important work.
+
+The problem turned out to be a bug in its scheduler. Every operating system has one: it decides which task the CPU should work on, for how long, and what comes next. When a scheduler works well, a computer moves so fluidly between responsibilities that it appears to be doing everything at once. When it doesn’t, everything grinds to a halt.
+
+Most of us don’t struggle with a lack of tasks - we struggle with scheduling them properly.
+
+## The trap of “perfect prioritisation”
+
+One of the first insights from computer scheduling theory is this:
+
+Every minute you spend prioritising your work is a minute you’re not spending doing it.
+
+Let’s say you open your inbox and try to determine which email is the most important. You reply to that one, then repeat the process. It feels responsible. Logical, even.
+
+But in algorithmic terms, this is what’s called a **quadratic-time algorithm**.
+
+If your inbox doubles in size, you don’t just spend twice as long managing it - you spend four times as long. That’s because you’re scanning the entire list again and again to figure out what to do next.
+
+At some point, the effort of deciding what to do becomes more expensive than doing the work itself.
+
+This is something that operating systems have encountered before. In the early 2000s, developers working on the Linux kernel realised that their scheduler was spending more time ranking tasks than executing them.
+
+Their solution was surprisingly simple: stop trying to be perfect.
+
+They replaced full rankings with a limited number of priority “buckets.” The system became less precise about what to do next, but spent far more time making progress.
+
+Sometimes, insisting on always doing the most important thing first can lead to doing nothing at all.
+
+## Context switching is expensive
+
+Another concept from operating systems is the **context switch**.
+
+Whenever a CPU switches from one task to another, it needs to:
+
+- Bookmark its current position
+- Move old data out of memory
+- Load new data in
+
+All of this takes time and energy.
+
+The same applies to us.
+
+Switching between emails, messages, meetings, documents, and deep-focus tasks isn’t free. Each transition comes with a small cognitive cost. Individually these costs are negligible, but over the course of a day they add up quickly.
+
+There’s a fundamental trade-off between productivity and responsiveness.
+
+Getting meaningful work done requires long, uninterrupted periods of focus. Being responsive requires reacting every time something comes up.
+
+These two goals are often in direct conflict.
+
+## Group your interruptions
+
+The obvious solution is to reduce interruptions. The less obvious one is to group them.
+
+In computer science, this is called _interrupt coalescing_.
+
+Instead of reacting instantly every time:
+
+- An email arrives
+- A notification fires
+- A message comes through
+- A small request appears
+
+…the system groups interruptions together and handles them in batches.
+
+In 2013, this technique led to a massive improvement in laptop battery life. By deferring interruptions, systems were able to handle tasks all at once before returning to a low-power state.
+
+We can apply the same principle.
+
+Checking messages once an hour instead of continuously, batching small administrative tasks together, and setting aside uninterrupted blocks for focused work can significantly reduce the cost of context switching.
+
+## Final thoughts
+
+Many attempts at improving time management focus on tools: planners, templates, timers, and productivity systems.
+
+But sometimes the issue isn’t tooling - it’s scheduling.
+
+Like Pathfinder, we can be fully occupied while failing to do the work that actually matters.
+
+By giving up on perfect prioritisation, reducing unnecessary context switches, and batching interruptions, we might not become perfectly efficient - but we will become more effective.
+
+And in most cases, effectiveness is what keeps meaningful progress moving forward.
